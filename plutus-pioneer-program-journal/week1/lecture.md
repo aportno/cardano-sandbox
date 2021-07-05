@@ -49,3 +49,24 @@ but now because there is no highest bidder, only one output is produced from the
 
 1. The NFT is given back to Alice
 
+# On-chain vs Off-chain Code
+***Written in Haskell**
+### On-chain code:
+Checks and validates transactions (saying yes or no to transaction)
+
+* Script addresses for UTXO model
+* Public-keys
+  
+A node receives a new transaction and validates it before accepting it into its mempool and eventually into a new block.
+For each input of the transaction, if the input happens to be a script address then the corresponding script is executed (and must succeed).
+If it doesn't succeed then the transaction will be invalid.
+
+This is written in Plutus Core, but it's not handwritten. The program is built in Haskell and then compiled down to Plutus Core
+
+### Off-chain code:
+
+Constructs and creates a transaction to be sent for validation
+
+In order to create a transaction that will unlock a script address, we must be able to construct a transaction that will be able to pass validation.
+This is the responsibility of the off-chain part of Plutus.
+
