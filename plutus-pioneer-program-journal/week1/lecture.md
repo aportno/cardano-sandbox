@@ -64,8 +64,7 @@ If it doesn't succeed then the transaction will be invalid.
 This is written in Plutus Core, but it's not handwritten. The program is built in Haskell and then compiled down to Plutus Core
 
 ### Off-chain code:
-
-Constructs and creates a transaction to be sent for validation
+Lives on the users machine. Constructs and creates a transaction to be sent for validation.
 
 In order to create a transaction that will unlock a script address, we must be able to construct a transaction that will be able to pass validation.
 This is the responsibility of the off-chain part of Plutus.
