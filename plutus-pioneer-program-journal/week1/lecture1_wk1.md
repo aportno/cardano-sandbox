@@ -49,6 +49,25 @@ but now because there is no highest bidder, only one output is produced from the
 
 1. The NFT is given back to Alice
 
+## Auction simulation
+
+Wallets attributes:
+* opening balances
+    * lovelace is fungible value tied to contract
+    * T is non-fungible value tied to contract
+
+Wallet functions:
+* bid
+* close
+* start
+* pay to wallet
+
+Sample action sequence:
+1. Add wallet_1 with an opening balance of 1000 lovelace and 1 T
+2. Add two more wallets with an opening balance of 1000 lovelace and 0 T
+3. Click `start` for `wallet 1`
+    * `getPOSIXTime` = 
+
 # On-chain vs Off-chain Code
 ***Written in Haskell**
 ### On-chain code:
