@@ -15,13 +15,30 @@ The EUTXO model extends this by adding a new type of address, called a "script" 
 
 On the script side sits some "datum" which is essentially a small slice of the state of the blockchain
 
-There are three pieces of data that a plutus script gets:
+There are 3 pieces of data that a plutus script gets:
 1. the datum
 2. the redeemer
 3. the context
 
-All three pieces of data use the same Haskell datatype. 
+All 3 pieces are the same **datatype** in Haskell
 
+```
+data Data =
+      Constr Integer [Data]
+    | Map [(Data, Data)]
+    | List [Data]
+    | I Integer
+    | B BS.ByteString
+    deriving stock (Show, Eq, Ord, Generic)
+    deriving anyclass (NFData)
+```
+
+We can see the datatype `Data` has 5 constructors and acts as a normal algebraic datatype:
+1. Constr Integer - takes an integer and recursively a list of data
+2. Map - takes a list of pairs of two data items. Think of it as a lookup table with key-value pairs
+3. List - takes a list of data
+4. I - takes an integer
+5. B - takes a byte string
 # Instructions to see datatype Data
 1. Ensure you `git checkout` the correct `tag` for week 2
 2. Start a `nix-shell` in `cardano/plutus`
@@ -33,5 +50,25 @@ All three pieces of data use the same Haskell datatype.
 7. Enter `:set -XOverloadedStrings` which allows us to use byte strings (and the B constructor)
 
 # Instructions to write first validator
-1. Create a new Haskell module
-2. 
+1. Create a new Haskell module named Week02.Gift
+2. Validators get 3 pieces of information all represented by the Data type
+    * Datum (comes from the output)
+    * Redeemer (comes from the input)
+    * Context (consuming transaction)
+3. Validators output/returns a `unit` or a `()` in Haskell
+    * run `cabal repl` in `cardano/plutus-pioneer-program/code/week02` to test
+    * load `Gift.hs` using `:l src/Week02/Gift.hs` command
+
+```
+{-# OPTIONS_GHC -fno-warn-unused-imports #-}
+mkValidator :: Data -> Data -> Data -> ()
+mkValidator _ _ _ = () -- always passes, doesn't care what the datum, redeemer or context are
+
+-- boiler plate
+validator :: Validator
+validator = mkValidatorScript $$(PlutusTx.compile [|| mkValidator ||]) -- quote a haskell expression using the oxford brackets || i.e., result will be something like the function defined above
+```
+4. `{-# INLINABLE mkValidator #-}`
+    * "inlinable" pragma; generally this type of pragma is used for validators of on-chain code
+    * it is used on the `mkValidator` function because it is the input between the `$$(PlutusTx.compile [|| mkValidator ||])`
+5. 
