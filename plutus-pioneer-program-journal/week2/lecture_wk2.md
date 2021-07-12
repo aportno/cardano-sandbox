@@ -21,3 +21,17 @@ There are three pieces of data that a plutus script gets:
 3. the context
 
 All three pieces of data use the same Haskell datatype. 
+
+# Instructions to see datatype Data
+1. Ensure you `git checkout` the correct `tag` for week 2
+2. Start a `nix-shell` in `cardano/plutus`
+3. `cd` to `cardano/plutus-pioneer-program/code/week02`
+4. run `cabal repl`
+    * run `cabal update` if repl fails
+5. run `import PlutusTx`
+6. Enter `i: Data` to get information on the datatype `Data`
+7. Enter `:set -XOverloadedStrings` which allows us to use byte strings (and the B constructor)
+
+# Instructions to write first validator
+1. Create a new Haskell module
+2. 
