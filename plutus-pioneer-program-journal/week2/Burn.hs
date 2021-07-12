@@ -16,7 +16,7 @@
 {-# LANGUAGE TypeOperators              #-}
 
 
-module Week02.Gift where
+module Week02.Burn where
 
 import           Control.Monad        hiding (fmap)
 import           Data.Aeson           (ToJSON, FromJSON)
