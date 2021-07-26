@@ -33,3 +33,25 @@ foo = ...
 ... foo
 ```
 
+# IO
+
+IO is a type constructor that takes one argument (similar to `Maybe` or `List`). It's a built-in primitive, and it shows that the computation involved will have side effects
+
+```
+foo :: IO Int
+foo = ...
+```
+
+# >> operator
+The `>>` operator executes two different `IO` actions:
+
+```
+putStrLn "Hello" >> putStrLn "World"
+```
+Will print the output:
+```
+Hello
+World
+```
+
+
